@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="ExternalCheat" width="120" />
+<img src="assets/logo.jpg" alt="ExternalCheat" width="120" />
 
 # ExternalCheat
 
