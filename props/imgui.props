@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dear ImGui settings shared by every project that compiles or includes ImGui (vendor.vcxproj, external.vcxproj).
+<!-- Dear ImGui settings shared by every project that compiles or includes ImGui (external.vcxproj).
      ImGui's config defines must be IDENTICAL in every translation unit, so they live in one place: here.
-     external/imgui/imconfig.h is never edited (vendored code stays untouched). Import AFTER common.props. -->
+     vendor/imgui/imconfig.h is never edited (vendored code stays untouched). Import AFTER common.props. -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <!-- External include paths: third-party headers, no /W4 /WX on them. -->
-    <ExternalIncludePath>$(MSBuildThisFileDirectory)..\external\imgui;$(MSBuildThisFileDirectory)..\external\imgui\backends;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(MSBuildThisFileDirectory)..\src\external\vendor\imgui;$(MSBuildThisFileDirectory)..\src\external\vendor\imgui\backends;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

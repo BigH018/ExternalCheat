@@ -1,4 +1,4 @@
-# Build output
+# Build output (matches at any depth so VS project subfolders are covered)
 bin/
 obj/
 x64/
@@ -27,19 +27,10 @@ build/
 *.aps
 
 # Local runtime data (profiles other than the committed default, logs)
-profiles/*
-!profiles/default.json
-logs/
+/profiles/*
+!/profiles/default.json
+/logs/
 
 # OS
 Thumbs.db
 desktop.ini
-
-# Legacy / unused
-docs/
-tests/
-tools/
-Imgui/
-external/
-CLAUDE.md
-README.md
