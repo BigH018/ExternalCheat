@@ -2,6 +2,7 @@
 bin/
 obj/
 x64/
+build/
 *.obj
 *.pdb
 *.ilk
@@ -12,6 +13,8 @@ x64/
 *.tlog
 *.lastbuildstate
 *.log
+*.sys
+*.inf
 
 # Visual Studio
 .vs/
@@ -39,3 +42,4 @@ tools/
 Imgui/
 external/
 CLAUDE.md
+README.md
