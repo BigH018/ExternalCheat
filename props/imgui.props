@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dear ImGui settings shared by every project that compiles or includes ImGui (vendor.vcxproj, external.vcxproj).
+     ImGui's config defines must be IDENTICAL in every translation unit, so they live in one place: here.
+     external/imgui/imconfig.h is never edited (vendored code stays untouched). Import AFTER common.props. -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- External include paths: third-party headers, no /W4 /WX on them. -->
+    <ExternalIncludePath>$(MSBuildThisFileDirectory)..\external\imgui;$(MSBuildThisFileDirectory)..\external\imgui\backends;$(ExternalIncludePath)</ExternalIncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- IMGUI_DISABLE_OBSOLETE_FUNCTIONS: only the current API (keeps us off deprecated calls).
+           IMGUI_IMPL_WIN32_DISABLE_GAMEPAD: no XInput; the menu is mouse + keyboard only.
+           IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS: no ShellExecute (ImGui's "open URL" helper); the menu never opens
+             links. -->
+      <PreprocessorDefinitions>IMGUI_DISABLE_OBSOLETE_FUNCTIONS;IMGUI_IMPL_WIN32_DISABLE_GAMEPAD;IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

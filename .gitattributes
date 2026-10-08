@@ -1,0 +1,25 @@
+# Normalise text files in the repo; check out with the platform's line endings
+* text=auto
+
+# Visual Studio files: always CRLF
+*.sln       text eol=crlf
+*.slnx      text eol=crlf
+*.vcxproj   text eol=crlf
+*.props     text eol=crlf
+*.targets   text eol=crlf
+
+# Source
+*.h         text
+*.hpp       text
+*.cpp       text
+*.md        text
+*.json      text
+
+# Binary
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.ico       binary
+*.exe       binary
+*.dll       binary
+*.lib       binary

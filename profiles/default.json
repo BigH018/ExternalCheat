@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "overlay": {
+    "theme": "midnight",
+    "accent": "#D2D2D8FF",
+    "watermark": true,
+    "frame_outline": false
+  },
+  "general": {
+    "team_mode": "teams"
+  },
+  "esp": {
+    "enabled": false,
+    "show_teammates": false,
+    "max_distance": 0.0,
+    "box": true,
+    "box_style": "full",
+    "thickness": 1.5,
+    "outline": true,
+    "head_circle": false,
+    "skeleton": false,
+    "name": true,
+    "health_bar": true,
+    "health_number": false,
+    "distance": true,
+    "weapon": true,
+    "scoped_indicator": true,
+    "snaplines": false,
+    "snapline_origin": "bottom",
+    "visibility_colours": true,
+    "colours": {
+      "enemy_visible": "#F25C5CFF",
+      "enemy_hidden": "#F2B35CFF",
+      "team_visible": "#5CD6A0FF",
+      "team_hidden": "#5CA8F2FF",
+      "skeleton": "#EDEBF7E6",
+      "text": "#EDEBF7FF",
+      "scoped": "#C6BEEBFF"
+    }
+  },
+  "aimbot": {
+    "enabled": false,
+    "target": "head",
+    "priority": "crosshair",
+    "fov": 5.0,
+    "draw_fov": true,
+    "fov_colour": "#EDEBF759",
+    "smoothing": 5.0,
+    "team_check": true,
+    "max_distance": 0.0,
+    "visible_only": false
+  },
+  "triggerbot": {
+    "enabled": false,
+    "activation": "key",
+    "reaction_ms": 40,
+    "fire_mode": "single",
+    "burst_shots": 3,
+    "shot_delay_ms": 150,
+    "team_check": true,
+    "visible_only": false,
+    "max_distance": 0.0,
+    "weapons": {
+      "pistol": true,
+      "smg": true,
+      "rifle": true,
+      "sniper": true,
+      "shotgun": true,
+      "heavy": true
+    },
+    "snipers_scoped_only": true,
+    "not_flashed": true,
+    "not_in_air": true,
+    "head_only": false
+  },
+  "radar": {
+    "enabled": false,
+    "corner": "top_right",
+    "size": 260.0,
+    "range": 40.0,
+    "rotate": true,
+    "show_teammates": true,
+    "facing": true,
+    "names": false,
+    "clamp_to_edge": true,
+    "dot_size": 4.0,
+    "visibility_colours": true,
+    "colours": {
+      "enemy_visible": "#F25C5CFF",
+      "enemy_hidden": "#F2B35CFF",
+      "team": "#5CA8F2FF",
+      "you": "#EDEBF7FF",
+      "background": "#0E1220B8"
+    }
+  },
+  "bomb_timer": {
+    "enabled": false,
+    "top": 120.0,
+    "defuse_hint": true,
+    "distance": true
+  },
+  "spectators": {
+    "enabled": false,
+    "side": "right",
+    "top": 290.0,
+    "show_mode": true,
+    "hide_when_empty": false
+  },
+  "keybinds": {
+    "menu_toggle": {
+      "key": "INSERT",
+      "mode": "press"
+    },
+    "panic": {
+      "key": "END",
+      "mode": "press"
+    },
+    "exit": {
+      "key": "DELETE",
+      "mode": "press"
+    },
+    "aimbot": {
+      "key": "Mouse 1",
+      "mode": "hold"
+    },
+    "aimbot_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "triggerbot": {
+      "key": "Mouse 4",
+      "mode": "hold"
+    },
+    "triggerbot_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "esp_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "radar_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "bomb_timer_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "spectators_enable_toggle": {
+      "key": null,
+      "mode": "press"
+    },
+    "preset_off": {
+      "key": null,
+      "mode": "press"
+    },
+    "preset_chill": {
+      "key": null,
+      "mode": "press"
+    },
+    "preset_medium": {
+      "key": null,
+      "mode": "press"
+    },
+    "preset_rage": {
+      "key": null,
+      "mode": "press"
+    }
+  }
+}

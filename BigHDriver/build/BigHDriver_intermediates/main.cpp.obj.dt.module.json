@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "build\\BigHDriver_intermediates\\main.obj",
+            "outputs": [
+                "build\\BigHDriver_intermediates\\main.cpp.obj.dt.module.json",
+                "build\\BigHDriver_intermediates\\main.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{7EB651E0-E5C1-4DDE-8145-6D97B178F70F}</ProjectGuid>
+    <RootNamespace>external</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Release'">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\..\props\common.props" />
+    <Import Project="..\..\props\imgui.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <TargetName>cs2_external</TargetName>
+    <!-- nlohmann/json is third-party: on the external include path, so its warnings are off. -->
+    <ExternalIncludePath>$(RepoRoot)external\nlohmann;$(ExternalIncludePath)</ExternalIncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <!-- d3d11: the overlay's own device. dwmapi: per-pixel transparency. d3dcompiler: ImGui's DX11 backend. -->
+      <AdditionalDependencies>d3d11.lib;dwmapi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="app\diagnostics.cpp" />
+    <ClCompile Include="app\frame.cpp" />
+    <ClCompile Include="app\live_view.cpp" />
+    <ClCompile Include="core\pattern.cpp" />
+    <ClCompile Include="core\pe.cpp" />
+    <ClCompile Include="core\process.cpp" />
+    <ClCompile Include="core\process_memory.cpp" />
+    <ClCompile Include="features\aimbot.cpp" />
+    <ClCompile Include="features\esp.cpp" />
+    <ClCompile Include="features\feature_summary.cpp" />
+    <ClCompile Include="features\radar.cpp" />
+    <ClCompile Include="features\bomb_timer.cpp" />
+    <ClCompile Include="game\bomb.cpp" />
+    <ClCompile Include="game\observer.cpp" />
+    <ClCompile Include="features\spectators.cpp" />
+    <ClCompile Include="render\panel.cpp" />
+    <ClCompile Include="features\targeting.cpp" />
+    <ClCompile Include="features\triggerbot.cpp" />
+    <ClCompile Include="game\bones.cpp" />
+    <ClCompile Include="game\entities.cpp" />
+    <ClCompile Include="game\globals.cpp" />
+    <ClCompile Include="game\handle.cpp" />
+    <ClCompile Include="game\interfaces.cpp" />
+    <ClCompile Include="game\player.cpp" />
+    <ClCompile Include="game\schema_system.cpp" />
+    <ClCompile Include="game\signatures.cpp" />
+    <ClCompile Include="game\view.cpp" />
+    <ClCompile Include="game\visibility.cpp" />
+    <ClCompile Include="game\weapon.cpp" />
+    <ClCompile Include="game\writes.cpp" />
+    <ClCompile Include="input\actions.cpp" />
+    <ClCompile Include="input\bind_capture.cpp" />
+    <ClCompile Include="input\keybinds.cpp" />
+    <ClCompile Include="input\key_poll.cpp" />
+    <ClCompile Include="input\key_tracker.cpp" />
+    <ClCompile Include="input\keys.cpp" />
+    <ClCompile Include="maths\angles.cpp" />
+    <ClCompile Include="maths\projection.cpp" />
+    <ClCompile Include="maths\skeleton.cpp" />
+    <ClCompile Include="render\painter.cpp" />
+    <ClCompile Include="settings\presets.cpp" />
+    <ClCompile Include="settings\profile_json.cpp" />
+    <ClCompile Include="settings\profile_store.cpp" />
+    <ClCompile Include="settings\themes.cpp" />
+    <ClCompile Include="ui\hud.cpp" />
+    <ClCompile Include="ui\icons.cpp" />
+    <ClCompile Include="ui\imgui_layer.cpp" />
+    <ClCompile Include="ui\keybind_widgets.cpp" />
+    <ClCompile Include="ui\menu.cpp" />
+    <ClCompile Include="ui\overlay_window.cpp" />
+    <ClCompile Include="ui\theme.cpp" />
+    <ClCompile Include="ui\widgets.cpp" />
+    <ClCompile Include="ui\pages\aimbot_page.cpp" />
+    <ClCompile Include="ui\pages\controls.cpp" />
+    <ClCompile Include="ui\pages\esp_page.cpp" />
+    <ClCompile Include="ui\pages\home_page.cpp" />
+    <ClCompile Include="ui\pages\keybinds_page.cpp" />
+    <ClCompile Include="ui\pages\misc_page.cpp" />
+    <ClCompile Include="ui\pages\settings_page.cpp" />
+    <ClCompile Include="ui\pages\triggerbot_page.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="color.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="app\diagnostics.h" />
+    <ClInclude Include="app\frame.h" />
+    <ClInclude Include="app\live_view.h" />
+    <ClInclude Include="app\state.h" />
+    <ClInclude Include="core\log.h" />
+    <ClInclude Include="core\memory.h" />
+    <ClInclude Include="core\pattern.h" />
+    <ClInclude Include="core\pe.h" />
+    <ClInclude Include="core\process.h" />
+    <ClInclude Include="core\process_memory.h" />
+    <ClInclude Include="core\runtime.h" />
+    <ClInclude Include="features\aimbot.h" />
+    <ClInclude Include="features\esp.h" />
+    <ClInclude Include="features\feature_summary.h" />
+    <ClInclude Include="features\radar.h" />
+    <ClInclude Include="features\bomb_timer.h" />
+    <ClInclude Include="game\bomb.h" />
+    <ClInclude Include="game\observer.h" />
+    <ClInclude Include="features\spectators.h" />
+    <ClInclude Include="render\panel.h" />
+    <ClInclude Include="features\targeting.h" />
+    <ClInclude Include="features\triggerbot.h" />
+    <ClInclude Include="game\bones.h" />
+    <ClInclude Include="game\entities.h" />
+    <ClInclude Include="game\globals.h" />
+    <ClInclude Include="game\handle.h" />
+    <ClInclude Include="game\interfaces.h" />
+    <ClInclude Include="game\offsets.h" />
+    <ClInclude Include="game\player.h" />
+    <ClInclude Include="game\schema.h" />
+    <ClInclude Include="game\schema_system.h" />
+    <ClInclude Include="game\signatures.h" />
+    <ClInclude Include="game\snapshot.h" />
+    <ClInclude Include="game\view.h" />
+    <ClInclude Include="game\visibility.h" />
+    <ClInclude Include="game\weapon.h" />
+    <ClInclude Include="game\writes.h" />
+    <ClInclude Include="input\actions.h" />
+    <ClInclude Include="input\bind_capture.h" />
+    <ClInclude Include="input\keybinds.h" />
+    <ClInclude Include="input\key_poll.h" />
+    <ClInclude Include="input\key_tracker.h" />
+    <ClInclude Include="input\keys.h" />
+    <ClInclude Include="maths\angles.h" />
+    <ClInclude Include="maths\projection.h" />
+    <ClInclude Include="maths\skeleton.h" />
+    <ClInclude Include="maths\vec.h" />
+    <ClInclude Include="render\painter.h" />
+    <ClInclude Include="render\primitives.h" />
+    <ClInclude Include="settings\settings.h" />
+    <ClInclude Include="settings\themes.h" />
+    <ClInclude Include="ui\hud.h" />
+    <ClInclude Include="ui\icons.h" />
+    <ClInclude Include="ui\imgui_layer.h" />
+    <ClInclude Include="ui\keybind_widgets.h" />
+    <ClInclude Include="ui\logo_pixels.h" />
+    <ClInclude Include="ui\menu.h" />
+    <ClInclude Include="ui\overlay_window.h" />
+    <ClInclude Include="ui\theme.h" />
+    <ClInclude Include="ui\widgets.h" />
+    <ClInclude Include="ui\pages\controls.h" />
+    <ClInclude Include="ui\pages\pages.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The exe's icon (assets/logo.ico). -->
+    <ResourceCompile Include="external.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Desktop\experiment\external\vendor.vcxproj">
+      <Project>{a1b2c3d4-e5f6-7890-1234-567890abcdef}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
