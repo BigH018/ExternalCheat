@@ -38,6 +38,7 @@ Runs entirely in its own process. Never injects into the game. Reads and writes 
 - [Diagnostics](#diagnostics)
 - [Troubleshooting](#troubleshooting)
 - [Notes and limitations](#notes-and-limitations)
+- [Improvements and alternatives considered](#improvements-and-alternatives-considered)
 
 ---
 
@@ -269,6 +270,72 @@ Both modes use the same memory backend as the overlay, so if they work, the over
 - **The mapper's footprint is the main risk.** KDMapper depends on a publicly known vulnerable driver. The cheat itself never injects into the game and never calls the usual user-mode memory APIs.
 - **Offsets rot.** Any CS2 update invalidates the dumps. `--diag` tells you exactly what moved.
 - **Behaviour is server-visible.** An external cheat can hide its memory reads, but it cannot hide what the player does with the information.
+
+---
+
+## Improvements and alternatives considered
+
+The current overlay is a topmost layered window rendered on its own D3D11 swap chain. It works, it's simple, and it keeps the cheat fully external. But there are several other places an overlay can live in the Windows graphics stack, each with its own trade-offs. This section documents the ones that came up during design and why the current approach was chosen over them.
+
+### Current: topmost layered window
+
+**How it works.** `CreateWindowExW` with `WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TRANSPARENT`. The window is created with a `DXGI_SWAP_EFFECT_DISCARD` swap chain, DWM extends the frame into the client area, and the back buffer is cleared to fully transparent each frame so only drawn content shows. `SetWindowPos` tracks the game window's client rect each frame.
+
+**Pros.**
+- No injection. The cheat process never touches `cs2.exe`.
+- Simple to reason about: one window, one swap chain, one render loop.
+- Works in borderless fullscreen and windowed mode.
+- `WS_EX_TOOLWINDOW` keeps it out of Alt+Tab and the taskbar.
+- Raw input with `RIDEV_INPUTSINK` lets the menu still see keys when the game has focus.
+
+**Cons.**
+- The window itself is a user-mode artifact. Window enumerators can find it.
+- Doesn't work in exclusive fullscreen (DWM isn't in the display path there).
+- Two D3D11 devices (the game's and the overlay's) means two GPU submissions.
+- Colour can desync if the game uses HDR or a non-standard tonemap.
+
+### Alternative: DWM overlay
+
+**How it works.** Inject into `dwm.exe` and hook its `Present`. Draw into the compositor's own back buffer, so the overlay is blended into the desktop image before it reaches the display.
+
+**Pros.**
+- No window. The compositor itself is drawing your content.
+- Works in borderless fullscreen.
+- No user-mode artifact in the game's process list.
+
+**Cons.**
+- Injecting into a system process requires kernel-level access.
+- A bug in the hook crashes `dwm.exe`, which takes the entire desktop down.
+- Finding DWM's swap chain is undocumented and version-fragile.
+- Exclusive fullscreen still bypasses DWM entirely, so it doesn't solve that case either.
+
+### Alternative: NVIDIA overlay
+
+**Two flavors.**
+
+1. **The official one.** GeForce Experience / NVIDIA App inject a user-mode component into games and hook `Present` to draw the performance overlay, ShadowPlay indicators, and filters.
+2. **The "hijack" approach.** Some projects try to detect NVIDIA's overlay window or process and attach to it, then draw custom content through NVIDIA's own pipeline.
+
+**Why neither was chosen.**
+- The official overlay has no public API for third-party content.
+- The hijack approach requires modifying a known NVIDIA process, and anti-cheats explicitly check for the window-style changes that hijacking leaves behind. It's a well-known detection signature.
+
+### Alternative: hardware overlay plane
+
+**How it works.** The GPU's display controller has multiple planes: a primary plane for the desktop, and one or more overlay planes that can hold independent content (this is how video playback avoids touching the desktop's rendering). A buffer placed on an overlay plane is blended with the desktop in the display hardware during scanout, below the OS compositor entirely.
+
+**Pros.**
+- Invisible to any software screen capture, including DWM's own composition.
+- Works over exclusive fullscreen, because the blend happens in the display engine, not in software.
+- Zero GPU shader cost — the blending is free hardware work.
+
+**Cons.**
+- There is no public API for a normal application to claim an overlay plane. Doing it requires writing a kernel-mode display minidriver or talking directly to vendor display-manager internals.
+- Not feasible without a signed kernel display component, and even then it's fragile across driver updates and GPU generations.
+
+### Why the current approach was kept
+
+The topmost window solves the problem this project actually has: draw an overlay on top of a borderless-fullscreen game, without injecting anything into it, without a system-process dependency, and without a signed kernel display driver. It's the least complex option that meets all three of those constraints. The other approaches each trade one of those constraints away — injection, system process stability, or driver signing — for a benefit (no window artifact, exclusive-fullscreen support, capture invisibility) that isn't needed for the intended use case.
 
 ---
 
