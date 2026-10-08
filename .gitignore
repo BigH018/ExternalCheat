@@ -31,3 +31,11 @@ logs/
 # OS
 Thumbs.db
 desktop.ini
+
+# Legacy / unused
+docs/
+tests/
+tools/
+Imgui/
+external/
+CLAUDE.md
