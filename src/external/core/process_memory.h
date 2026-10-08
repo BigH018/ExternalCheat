@@ -1,7 +1,7 @@
 #pragma once
 
-// core::Memory for a real process: ReadProcessMemory / WriteProcessMemory on a handle someone else owns
-// (core::UniqueHandle in main.cpp). The only code in the project that calls RPM/WPM.
+// core::Memory for a real process: Uses a kernel driver for memory access.
+// The only code in the project that calls the driver's IOCTLs.
 
 #include <cstddef>
 #include <cstdint>
@@ -9,20 +9,20 @@
 #include <Windows.h>
 
 #include "core/memory.h"
+#include "core/kernel_interface.h"
 
 namespace core
 {
-class ProcessMemory final : public Memory
-{
-public:
-    // `process` must outlive this object. Reads need PROCESS_VM_READ; writes need PROCESS_VM_WRITE |
-    // PROCESS_VM_OPERATION.
-    explicit ProcessMemory(HANDLE process) noexcept : process_(process) {}
+    class ProcessMemory final : public Memory
+    {
+    public:
+        // `kernel` must outlive this object.
+        explicit ProcessMemory(KernelInterface& kernel) noexcept : kernel_(kernel) {}
 
-private:
-    [[nodiscard]] bool do_read(std::uintptr_t address, void* buffer, std::size_t size) const noexcept override;
-    [[nodiscard]] bool do_write(std::uintptr_t address, const void* buffer, std::size_t size) noexcept override;
+    private:
+        [[nodiscard]] bool do_read(std::uintptr_t address, void* buffer, std::size_t size) const noexcept override;
+        [[nodiscard]] bool do_write(std::uintptr_t address, const void* buffer, std::size_t size) noexcept override;
 
-    HANDLE process_ = nullptr;
-};
+        KernelInterface& kernel_;
+    };
 } // namespace core

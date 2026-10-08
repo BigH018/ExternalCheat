@@ -16,11 +16,12 @@
 #include <Windows.h>
 
 #include "app/state.h"
+#include "core/kernel_interface.h"
 #include "core/memory.h"
 #include "core/process.h"
 
 namespace app
 {
-[[nodiscard]] OffsetReport run_diagnostics(const core::Memory& memory, DWORD pid, const core::ModuleInfo& client,
-                                           const core::ModuleInfo& engine);
+    [[nodiscard]] OffsetReport run_diagnostics(KernelInterface& kernel, const core::Memory& memory, DWORD pid,
+        const core::ModuleInfo& client, const core::ModuleInfo& engine);
 } // namespace app

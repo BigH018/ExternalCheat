@@ -37,16 +37,54 @@
   </ImportGroup>
   <PropertyGroup>
     <TargetName>cs2_external</TargetName>
-    <!-- nlohmann/json is third-party: on the external include path, so its warnings are off. -->
-    <ExternalIncludePath>$(RepoRoot)external\nlohmann;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(ProjectDir)vendor\nlohmann;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
       <SubSystem>Console</SubSystem>
-      <!-- d3d11: the overlay's own device. dwmapi: per-pixel transparency. d3dcompiler: ImGui's DX11 backend. -->
       <AdditionalDependencies>d3d11.lib;dwmapi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
+  <!-- ImGui source files compiled directly into this project -->
+  <ItemGroup>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+  </ItemGroup>
+  <!-- Cheat source files -->
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="app\diagnostics.cpp" />
@@ -117,6 +155,7 @@
     <ClInclude Include="app\frame.h" />
     <ClInclude Include="app\live_view.h" />
     <ClInclude Include="app\state.h" />
+    <ClInclude Include="core\kernel_interface.h" />
     <ClInclude Include="core\log.h" />
     <ClInclude Include="core\memory.h" />
     <ClInclude Include="core\pattern.h" />
@@ -177,13 +216,7 @@
     <ClInclude Include="ui\pages\pages.h" />
   </ItemGroup>
   <ItemGroup>
-    <!-- The exe's icon (assets/logo.ico). -->
     <ResourceCompile Include="external.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Desktop\experiment\external\vendor.vcxproj">
-      <Project>{a1b2c3d4-e5f6-7890-1234-567890abcdef}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
