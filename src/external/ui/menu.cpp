@@ -229,7 +229,7 @@ void draw_menu(MenuState& state, const Fonts& fonts, ImTextureData* logo, app::A
 
     constexpr ImGuiWindowFlags kFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
                                         ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
-    if (ImGui::Begin("External Cheat##menu", nullptr, kFlags))
+    if (ImGui::Begin("BigHTool##menu", nullptr, kFlags))
     {
         paint_chrome();
         draw_header(fonts, logo, app);

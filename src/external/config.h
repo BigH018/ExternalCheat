@@ -14,11 +14,11 @@ namespace config
 static_assert(sizeof(void*) == 8, "x64 only");
 
 // --- Branding ------------------------------------------------------------------------------------------------------
-inline constexpr char kAppName[] = "External Cheat";
+inline constexpr char kAppName[] = "BigHTool";
 inline constexpr char kAppAuthor[] = "by BigH";
-inline constexpr char kAppEdition[] = "External";
-inline constexpr wchar_t kOverlayClassName[] = L"ExternalCheatOverlay";
-inline constexpr wchar_t kOverlayTitle[] = L"External Cheat - overlay";
+inline constexpr char kAppEdition[] = "v1 private";
+inline constexpr wchar_t kOverlayClassName[] = L"BigHTool";
+inline constexpr wchar_t kOverlayTitle[] = L"BigHTool";
 
 // --- Pointer sanity ------------------------------------------------------------------------------------------------
 // User-mode address range of an x64 Windows process. The first 64 KiB are never mapped.

@@ -36,13 +36,15 @@
     <Import Project="..\..\props\imgui.props" />
   </ImportGroup>
   <PropertyGroup>
-    <TargetName>cs2_external</TargetName>
+    <TargetName>BigHTool</TargetName>
     <ExternalIncludePath>$(ProjectDir)vendor\nlohmann;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>d3d11.lib;dwmapi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <UACExecutionLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RequireAdministrator</UACExecutionLevel>
+      <UACExecutionLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RequireAdministrator</UACExecutionLevel>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
